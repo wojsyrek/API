@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplication31.Data;
+using WebApplication31.Models;
+using WebApplication31.Repositories;
 
 namespace WebApplication31.Controllers
 {
@@ -13,14 +17,23 @@ namespace WebApplication31.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ApiDbContext dbContext)
         {
             _logger = logger;
+            DbContext = dbContext;
         }
+
+        public ApiDbContext DbContext { get; }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+
+            UserRepository userRepository = new UserRepository(DbContext);
+            userRepository.Add(new User
+                { City = "Blah", Name = "Blach", PhoneNumber = "111111111", Surname = "Blach", Id = 15 });
+
+            
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
@@ -29,5 +42,6 @@ namespace WebApplication31.Controllers
             })
             .ToArray();
         }
+        
     }
 }
