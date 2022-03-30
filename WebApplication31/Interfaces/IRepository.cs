@@ -3,8 +3,8 @@
     public interface IRepository<T> where T : class
     {
         void Add(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         IEnumerable<T> GetUsers();
-        T GetUser(T entity);
+        T GetUser(int id);
     }
 }

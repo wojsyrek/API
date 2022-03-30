@@ -19,18 +19,22 @@ namespace WebApplication31.Repositories
             _dbContext.Add(user);
             _dbContext.SaveChanges();
         }
-        public void Delete(User user)
+        public void Delete(int id)
         {
-            _dbContext.Remove(user);
-            _dbContext.SaveChanges();
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                _dbContext.Users.Remove(user);
+                _dbContext.SaveChanges();
+            }
         }
         public IEnumerable<User> GetUsers()
         {
             return _dbContext.Users.ToList();
         }
-        public User GetUser(User user)
+        public User? GetUser(int id)
         {
-            return _dbContext.Users.Find(user);
+            return _dbContext.Users.SingleOrDefault(u => u.Id == id);
         }
 
     }
