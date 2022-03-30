@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepository<User>, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRepositoryWorker, RepositoryWorker>();
 
 builder.Services.AddDbContext<ApiDbContext>(o => o.UseSqlServer(builder.Configuration["ConnectionString"]));
 

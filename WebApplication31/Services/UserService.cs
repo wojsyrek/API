@@ -7,28 +7,28 @@ namespace WebApplication31.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRepository<User> _UserRepository;
-        public UserService(IRepository<User> UserRepository)
+        private readonly IRepositoryWorker _repositoryWorker;
+        public UserService(IRepositoryWorker repositoryWorker)
         {
-            _UserRepository = UserRepository;
+            _repositoryWorker = repositoryWorker;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            return _UserRepository.GetUsers();
+            return _repositoryWorker.UserRepository.GetUsers();
         }
 
         public User GetUser(int id)
         {
-            return _UserRepository.GetUser(id);
+            return _repositoryWorker.UserRepository.GetUser(id);
         }
         public void Delete(int id)
         {
-            _UserRepository.Delete(id);
+            _repositoryWorker.UserRepository.Delete(id);
         }
         public void Add(User user)
         {
-            _UserRepository.Add(user);
+            _repositoryWorker.UserRepository.Add(user);
         }
     }
 }
